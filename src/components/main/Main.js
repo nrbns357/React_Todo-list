@@ -24,7 +24,7 @@ const TodoList = () => {
     const onSubmit = (event) => {
       event.preventDefault();
       setToDos([...toDos, value])
-      fetch(`/API/add.php?text=${value}`)
+      fetch(`/API/add.php?text=${value}`);
     }
 
     // const fetchData = ()=>{
