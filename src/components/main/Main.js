@@ -9,11 +9,8 @@ const TodoList = () => {
   const [value, setValue] = useState("");
   const [toDos, setToDos] = useState([]);
 
-  const [userId,setUserId] = useState("");
-  const [userPass,setUserPass] = useState("");
-  
     const onChange = (event) => {
-        const {target : {value}} =event;
+        const {target : {value}} = event.target;
         setValue(value);
     }
 
@@ -37,15 +34,7 @@ const TodoList = () => {
     
     return (
       <div className="App">
-          <div className="main">
-                <input type="text" onChange={setUserId}  placeholder="id" className="id input"></input>
-                <input type="password" onChange={setUserPass} placeholder="password" className="pass input"></input>
-                <input type="submit" onClick={()=>{
-                    fetch(`/API/login.php?id=${userId?.target.value}&pass=${userPass?.target.value}`)
-                      .then((response) => response.json())
-                      .then((data) => setToDos(data));
-                }} className="sub"/>
-        </div>
+          
         <section>
           <div className="color"></div>
           <div className="color"></div>
