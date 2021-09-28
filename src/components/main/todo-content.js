@@ -1,4 +1,5 @@
 import React from 'react';
+import Img from '../../asset/img/close.png';
 import "./todo-content.css";
 
 
@@ -9,7 +10,7 @@ const Content = ({textArray}) => {
         <div>
             {textArray.map(text => <div className="content">
             {text.content}
-            <img alt="closeImg" src="/img/close.png" className="delbtn" onClick={() =>{
+            <img alt="closeImg" src={Img} className="delbtn" onClick={() =>{
                     fetch(`/API /del.php?id=${text.indexId}`);
                 }
             }></img>
