@@ -18,7 +18,7 @@ export const incrementAsync = createAsyncThunk(
     // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
-);
+);  
 
 export const counterSlice = createSlice({
   name: 'counter',
