@@ -14,33 +14,19 @@ const TodoList = () => {
     setValue(value);
   };
 
-  useEffect(() => {
-    console.log(toDos);
-  }, [toDos]);
 
   const onSubmit = (event) => {
     event.preventDefault();
     setToDos([...toDos, value]);
-
     fetch(`/API/add.php?text=${value}`);
   };
 
-  // const fetchData = ()=>{
-  //   fetch(`/API/inquiry.php`)
-  //   .then((response) => response.json())
-  //   .then((data) => setToDos(data));
-  // }
 
-  // fetchData();
 
   return (
     <div className="App">
       
         <div className="todocontent">
-          <div className="color" />
-          <div className="color" />
-          <div className="color" />
-
           <div className="box">
             <div className="square"></div>
             <div className="square"></div>
@@ -59,12 +45,12 @@ const TodoList = () => {
                     value={value}
                     onChange={onChange}
                     placeholder="What are we going to do today?"
-                    ></input>
+                    />
                   <input
                     type="submit"
                     value="submit"
                     onClick={onSubmit}
-                    ></input>
+                    />
                 </form>
                 <Content textArray={toDos} />
               </div>

@@ -1,49 +1,85 @@
 import React,{useState} from 'react';
 import { useDispatch } from 'react-redux';
 import { registTodo } from '../app/store';
-//import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './Login.css';
+import axios from 'axios';
+
 
 const Login = () => {
 
     const [userId, setUserId] = useState("");
     const [userPass, setUserPass] = useState("");
-    const [userInfo, setUserInfo] = useState();
     const dispatch = useDispatch();
-    //const history = useHistory() (나중에 쓸 예정)
+    const history = useHistory();
+    // const FatchPhp = () =>{
+    // fetch( //API로 php코드에 유저의 아이디와 비밀번호를 넘겨줌 
+    //           `/API/login.php?id=${userId?.target.value}&pass=${userPass?.target.value}`
+    //           )
+    //           .then((response) => response.json()) // 그 결과를 json으로 바꿔줌
+    //           .then((data) =>dispatch(registTodo(data))) // 바꿔준 내용을 data라는 이름의 변수로 받아서 setUserInfo레 전해줌 Redux로 이 data를 넘겨줄 예정
+    //           .then(() => history.push("/Main"));
+    //               }
 
-    const Data = () =>{
-      fetch( //API로 php코드에 유저의 아이디와 비밀번호를 넘겨줌 
-              `/API/login.php?id=${userId?.target.value}&pass=${userPass?.target.value}`
-              )
-              .then((response) => response.json()) // 그 결과를 json으로 바꿔줌
-              .then((data) => setUserInfo(data)); // 바꿔준 내용을 data라는 이름의 변수로 받아서 setUserInfo레 전해줌 Redux로 이 data를 넘겨줄 예정
-              //.then(history.push("/Main")); 메인 페이지로 이동하는 함수 하지만 유저의 정보를 전달해주지 못해 못사용함
-    } 
-    
+
+      const Examine = () =>{
+        if(!userId||!userPass){
+          return false
+        }
+        else {
+          return true
+        }
+      }
+
+      const sendUserData = async() =>{
+          const url = `/API/login.php?id=${userId?.target.value}&pass=${userPass?.target.value}`
+            try { // 클릭이 될때 마다 이 함수가 실행된다.
+              const data = await axios.get(url); // axios를 이용해서 get으로 url을 실행
+              return data; // php에서 가져온 데이터를 리턴을 해준다.
+            } catch (error) { // try를 하다가 error가 난다면 catch가 잡아준다.
+              const data= error.response // error가 무엇인지 자세히 알려준다.
+              return data; 
+            }    
+      }
+
+      const onSubmit = async(e) =>{
+        e.preventDefault(); 
+        const inputPass = Examine(); //true and false 값을 받아서 오는 함수
+        if(inputPass){ //true면 try실행 , flase면 return해서
+        const res = await sendUserData(); // sendUserData();를 실행해서 return값을 res변수에 저장
+        const {status, data} = res; // res변수에서 {status, data}만 뺀다. 
+        dispatch(registTodo(data));
+        console.log(data);
+          if(status === 200){ // {status}가 200일떄 (200은 성공했다는 의미이다.) 
+            history.push("/Main"); // 참이면 페이지 이동
+            return;  
+          }
+        return; // true일때 alert창이 실행이 안되게 해준다.
+        }
+        window.alert("로그인이 정상적으로 되지 않았습니다. 다시 시도해주세요.")
+      }
 
     return (
-        <>
-        <from submit={Data}>
+      <form class="todoform">
         <input
           type="text"
           onChange={setUserId}
           placeholder="id"
           className="todoId todoInput"
-          ></input>
+          />
         <input
           type="password"
           onChange={setUserPass}
           placeholder="password"
           className="todoPass todoInput"
-        ></input>
+          />
         <input
           type="submit"
-          onClick={()=>{dispatch(registTodo(userInfo))}}
-            className="sub todoInput"
+          onClick={onSubmit}
+            className="sub"
+            value="submit"
             />
-            </from>
-        </>
+        </form>
     );
 };
 

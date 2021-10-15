@@ -1,5 +1,5 @@
 import React from 'react';
-import Img from '../../asset/img/close.png';
+import Img from '../asset/img/close.png';
 import "./todo-content.css";
 
 

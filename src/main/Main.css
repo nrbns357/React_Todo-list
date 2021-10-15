@@ -17,37 +17,7 @@
     align-items: center;
     min-height: 100vh;
   }
-  
-  .todocontent .color
-  {
-    position: absolute;
-    filter: blur(150px);
-  }
-  .todocontent .color:nth-child(1)
-  {
-    top: -350px;
-    width: 500px;
-    height: 500px;
-    background-color: #ff359b;
-  }
-  
-  .todocontent .color:nth-child(2)
-  {
-    bottom: -150px;
-    left: 100px;
-    width: 500px;
-    height: 500px;
-    background-color: #fffd87;
-  }
-  
-  .todocontent .color:nth-child(3)
-  {
-    bottom: 50px;
-    right: 100px;
-    width:300px;
-    height: 300px;
-    background-color: #00d2ff;
-  }
+
 
   section{
     width: 200px;
@@ -55,15 +25,6 @@
     position: relative;
     top: 10%;
     left: 5%;
-  }
-
-  .todoInput{
-    width: 200px;
-    height: 30px;
-    outline: none;
-    margin-bottom: 5px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border: 1px solid rgba(0, 0, 0, 0.4);
   }
 
   .App{
@@ -210,7 +171,7 @@
   
   .form .inputBox input::placeholder
   {
-    color: #888888;
+    color: #fff;
     
   }
   
