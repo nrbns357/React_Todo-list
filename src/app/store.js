@@ -1,12 +1,20 @@
 import {createStore} from 'redux'
 
 
-const REGIST = 'Regist'
+const REGIST = 'Regist';
+const ADD_TODO = 'add_todo';
 
 export const registTodo = dataArray => {
   return {
     type: REGIST,
     data: dataArray
+  }
+}
+
+export const AddTodo = inputText => { //액션생성 함수
+  return{
+    type: ADD_TODO,
+    value: inputText 
   }
 }
 
@@ -20,8 +28,12 @@ export const reducer = (state,action) =>
         user: action.data
       }
     }
-    case undefined:
-      return alert('유저');
+    case ADD_TODO: {
+      return {
+        ...state,
+        todos: [...state.todos, action.data]// 기존에 있던 state값 예를 들면 
+      }
+    }
     default:
       return state
   }

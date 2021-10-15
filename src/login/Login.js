@@ -33,7 +33,7 @@ const Login = () => {
 
       const sendUserData = async() =>{
           const url = `/API/login.php?id=${userId?.target.value}&pass=${userPass?.target.value}`
-            try { // 클릭이 될때 마다 이 함수가 실행된다.
+            try { 
               const data = await axios.get(url); // axios를 이용해서 get으로 url을 실행
               return data; // php에서 가져온 데이터를 리턴을 해준다.
             } catch (error) { // try를 하다가 error가 난다면 catch가 잡아준다.
@@ -49,18 +49,17 @@ const Login = () => {
         const res = await sendUserData(); // sendUserData();를 실행해서 return값을 res변수에 저장
         const {status, data} = res; // res변수에서 {status, data}만 뺀다. 
         dispatch(registTodo(data));
-        console.log(data);
           if(status === 200){ // {status}가 200일떄 (200은 성공했다는 의미이다.) 
             history.push("/Main"); // 참이면 페이지 이동
             return;  
           }
         return; // true일때 alert창이 실행이 안되게 해준다.
         }
-        window.alert("로그인이 정상적으로 되지 않았습니다. 다시 시도해주세요.")
+        window.alert("아이디와 비밀번호를 입력해주세요.");
       }
 
     return (
-      <form class="todoform">
+      <form class="todoform" onSubmit={onSubmit}>
         <input
           type="text"
           onChange={setUserId}
@@ -75,7 +74,6 @@ const Login = () => {
           />
         <input
           type="submit"
-          onClick={onSubmit}
             className="sub"
             value="submit"
             />
