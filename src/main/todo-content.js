@@ -10,11 +10,11 @@ const Content = () => {
   const state = useSelector((state) => state); // store를 불러와서 그걸 state에 넣어주고 state.user을 써서 state안에 user정보를 변수에 저장
   const { user, todos } = state;
   const dispatch = useDispatch();
-
+  // Key는 React가 어떤 항목을 변경, 추가 또는 삭제할지 식별하는 것을 돕습니다
   // 로그인을 하고 Main페이지에서 새로고침 했을 때 로그인된 user의 정보가 안보여진다.
   // 그래서  로컬 스토리지에 저장을 해서  
   useEffect(() => {
-      localStorage.setItem("user",'');
+      localStorage.setItem("userinfo",'user');
       console.log(user); // 확인을 해보면 콘솔에 찍힘 하지만 user의 배열은 비어있음
      if(!user){
         history.push('/Main');

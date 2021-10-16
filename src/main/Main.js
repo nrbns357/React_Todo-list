@@ -31,8 +31,8 @@ const TodoList = () => {
 
     // }
     dispatch(addTodo(value)); // 디스패치로 새로 입력한 vlaue를 store에 보내준다.
-    fetch(`/API/add.php?text=${value}&userId=${data}`) // 넘겨주는 값이 data를 넘겨주는게 맞을지 모르겠으니 나중에 한번 봐라 미래의 나야
-    .then((response) => response);
+    fetch(`/API/add.php?text=${value}&userId=${data}`) // user의 Number를 넘겨줘야함
+    .then((response) => response.json());
   };
 
   return (
