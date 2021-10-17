@@ -1,14 +1,15 @@
-import React, {  useState,dispatch } from "react";
-import { AddTodo } from '../app/store';
+import React, {  useState} from "react";
+import {useDispatch} from 'react-redux';
+import { addTodo } from '../app/store';
 import Content from "./todo-content";
 import "./Main.css";
 
 const TodoList = () => {
-  const [value, setValue] = useState("");
 
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
 
   const onChange = (event) => {
-    console.log(event)
     const {
       target: { value },
     } = event;
@@ -18,10 +19,9 @@ const TodoList = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    dispatch(AddTodo(value)); // 디스패치로 새로 입력한 text를 store에 보내준다.
+    dispatch(addTodo(value)); // 디스패치로 새로 입력한 text를 store에 보내준다.
     fetch(`/API/add.php?text=${value}`);
   };
-
 
   // const userDataBring = ()=>{
   //   const Bring = toDos.map( res => );
@@ -55,7 +55,7 @@ const TodoList = () => {
                     value="submit"
                     />
                 </form>
-                {/* <Content /> */}
+                <Content />
               </div>
             </div>
           </div>
