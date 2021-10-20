@@ -50,7 +50,6 @@ const Login = () => {
       // {sendUserData} 를 실행해서 return값을 res변수에 저장
       const { status, data } = res; // res변수에서 {status, data}만 뺀다.
       dispatch(registTodo(data));
-      console.log(data);
       if (status === 200) {
         // {status}가 200일떄 (200은 성공했다는 의미이다.)
         history.push("/Main"); // 참이면 페이지 이동

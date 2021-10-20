@@ -27,7 +27,7 @@ export const removeTodo = (todoId) => {
 };
 
 const initialState = {
-  user: [],
+  user: null,
   todos: [],
 };
 
@@ -36,9 +36,16 @@ let increaseIndexId = 0;
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case REGIST: {
+      
       return {
         ...state,
         user: action.data,
+        todos: action.data.map((item) => {
+          return {
+            content: item.content,
+            index: item.indexKey
+          }
+        })
       };
     }
     case ADD_TODO: {
@@ -49,17 +56,19 @@ export const reducer = (state = initialState, action) => {
           ...state.todos,
           {
             //todos라는 배열 안에 state.todos 이라는 배열 (초기에는 빈값을) 을 넣어준다.
-            text: action.value, // [removeTodo]
-            indexId: increaseIndexId++,
+            content: action.value, // [removeTodo]
+            index: increaseIndexId++,
           },
         ],
       };
     }
-    case REMOVE_TODO: {
-      //제거 하는 부분
-      //Array.prototype.filter() // 사용해서 제거하기
-      return console.log(action.delId);
+    case REMOVE_TODO: { 
+      return { //삭제는 웹 페이지 에서만 잠깐 안보이고 서버에서는 삭제가 일어나지 않음 서버에서 삭제를 하기 위해서 content를 추가했을 때 userNumber가 있어야 함  
+        ...state,
+        todos: state.todos.filter(todo => todo.index !== action.id)
+      };
     }
+    
     default:
       return state;
   }
