@@ -7,7 +7,7 @@ import "./Main.css";
 
 const TodoList = () => {
   const [value, setValue] = useState("");
-  const {user} = useSelector((state) => state)
+  const {userNumber} = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -19,9 +19,7 @@ const TodoList = () => {
     setValue(value);
   };
   const onSubmit = (event) => {
-    // 문제점 1)  value를 입력했을 때 서버를 통해 데이터 베이스 (contnet)에 저장을 해야함.
     // 문제점 2)  value를 입력하고 제출을 하고 이전 페이지로 돌아 간 다음 어떤 아이디로든 로그인을 해도 입력했었던 contnent가 나옴
-    // 문제점 3)  user의 contnent가 안나옴
     // 문제점 5)  삭제 버튼을 누르면 서버에 ture값이 가긴 하지만 {console로도 나옴} 웹 페이지 상에는 안보임
     // 문제점 6)  빈 vlaue가 입력되면 빈 contnet가 나온다
     // 문제점 7)  main 페이지에서 새로고침을 하면 로그아웃이 되는데 그때 삭제 버튼을 누르면 user의 정보가 나오지 읺는다.
@@ -33,17 +31,15 @@ const TodoList = () => {
 
     // }
     setValue("");
-    fetch(`/API/add.php?text=${value}&userId=${user}`).then(() => { //서버에 먼저 요청을 한다음 store에 value를 보내준다. (then은 error가 안일어났을 때 실행된다.)
-      dispatch(addTodo(value)); // 디스패치로 새로 입력한 vlaue를 store에 보내준다.
-    }); // user의 Number를 넘겨줘야함
-    //.then((response) => response.json());
+    fetch(`/API/add.php?text=${value}&userNumber=${userNumber}`) // 추가할때 id가 userNumber값으로 나와야하는데 id가 0으로 나온다 (id를 확인하는 방범은 삭제 버튼을 누른뒤 네트워크에서 확인해라)
+    .then(() => { // user안에 userNumber가 undefined이다. 
+      //서버에 먼저 요청을 한다음 store에 value를 보내준다. (then은 error가 안일어났을 때 실행된다.) 
+      fetch(`/API/content.php?userNumber=${userNumber}`)
+      .then((result)=>result.json())
+      .then(res=> dispatch(addTodo(res))); // 디스패치로 새로 입력한 vlaue를 store에 보내준다.
+    }); 
   };
 
-  useEffect(() => {
-    if(!user) {
-      history.push('/')
-    }
-  }, [history, user])
 
   return (
     <div className="App">

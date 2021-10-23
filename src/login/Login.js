@@ -49,7 +49,7 @@ const Login = () => {
       //동기 처리(그 반대인 동기는 예를 들어 서버에 요청을 하면 서버에 요청한 값을 가져오기 까지는 다른 코드를 실행 할 수 없는 쉽지만 비효율 적인 처리이다.)
       // {sendUserData} 를 실행해서 return값을 res변수에 저장
       const { status, data } = res; // res변수에서 {status, data}만 뺀다.
-      dispatch(registTodo(data));
+      dispatch(registTodo(data)); //userNumber이다.
       if (status === 200) {
         // {status}가 200일떄 (200은 성공했다는 의미이다.)
         history.push("/Main"); // 참이면 페이지 이동

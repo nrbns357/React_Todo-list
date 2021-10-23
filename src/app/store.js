@@ -4,10 +4,10 @@ const REGIST = "Regist";
 const ADD_TODO = "add_todo";
 const REMOVE_TODO = "remove_todo";
 
-export const registTodo = (dataArray) => {
+export const registTodo = (userNum) => {
   return {
     type: REGIST,
-    data: dataArray,
+    data: userNum,
   };
 };
 
@@ -26,40 +26,25 @@ export const removeTodo = (todoId) => {
   };
 };
 
+
 const initialState = {
-  user: null,
+  userNumber: '',
   todos: [],
 };
 
-let increaseIndexId = 0;
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGIST: {
-      
+    case REGIST: 
       return {
         ...state,
-        user: action.data,
-        todos: action.data.map((item) => {
-          return {
-            content: item.content,
-            index: item.indexKey
-          }
-        })
-      };
-    }
+        userNumber: action.data,
+      }    
     case ADD_TODO: {
       // immer
       return {
         ...state, // 이것을 써주는 이유는 push하면 기존에 있던 값들이 날라감 기존에 있던값을 같이 리턴 해주는 것이야.
-        todos: [
-          ...state.todos,
-          {
-            //todos라는 배열 안에 state.todos 이라는 배열 (초기에는 빈값을) 을 넣어준다.
-            content: action.value, // [removeTodo]
-            index: increaseIndexId++,
-          },
-        ],
+        todos:[ action.value], // 맞는게 아님
       };
     }
     case REMOVE_TODO: { 
