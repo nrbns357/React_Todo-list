@@ -6,12 +6,18 @@ import Content from "./todo-content";
 import "./Main.css";
 
 const TodoList = () => {
+
   const [value, setValue] = useState("");
   const {userNumber} = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
 
-
+  useEffect(() => {
+    fetch(`/API/content.php?userNumber=${userNumber}`)
+    .then((result)=>result.json())
+    .then(res=> dispatch(addTodo(res)));
+  }, [history]);
+  
   const onChange = (event) => {
     const {
       target: { value },
@@ -25,21 +31,20 @@ const TodoList = () => {
     // 문제점 7)  main 페이지에서 새로고침을 하면 로그아웃이 되는데 그때 삭제 버튼을 누르면 user의 정보가 나오지 읺는다.
     // 문제점 8)  
     event.preventDefault();
-    // if(value===""){ // value가 비었을 때 함수 실행을 안되게 해야함 (나중에 구현)
-    //   return;
-    // }else{
-
-    // }
     setValue("");
-    fetch(`/API/add.php?text=${value}&userNumber=${userNumber}`) // 추가할때 id가 userNumber값으로 나와야하는데 id가 0으로 나온다 (id를 확인하는 방범은 삭제 버튼을 누른뒤 네트워크에서 확인해라)
-    .then(() => { // user안에 userNumber가 undefined이다. 
-      //서버에 먼저 요청을 한다음 store에 value를 보내준다. (then은 error가 안일어났을 때 실행된다.) 
+    fetch(`/API/add.php?text=${value}&userNumber=${userNumber}`)
+    .then(()=>{
       fetch(`/API/content.php?userNumber=${userNumber}`)
       .then((result)=>result.json())
-      .then(res=> dispatch(addTodo(res))); // 디스패치로 새로 입력한 vlaue를 store에 보내준다.
-    }); 
-  };
+      .then(res=> dispatch(addTodo(res)));
+    }); // 추가할때 id가 userNumber값으로 나와야하는데 id가 0으로 나온다 (id를 확인하는 방범은 삭제 버튼을 누른뒤 네트워크에서 확인해라)
 
+
+    useEffect(() => {
+      if(!userNumber) {
+        history.push('/')
+      }
+    }, [history, userNumber]);
 
   return (
     <div className="App">
@@ -63,7 +68,7 @@ const TodoList = () => {
                 />
                 <input type="submit" value="submit" />
               </form>
-              <Content />
+              <Content/>
             </div>
           </div>
         </div>

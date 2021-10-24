@@ -19,6 +19,8 @@ export const addTodo = (inputText) => {
   };
 };
 
+let int=0;
+
 export const removeTodo = (todoId) => {
   return {
     type: REMOVE_TODO,
@@ -44,7 +46,14 @@ export const reducer = (state = initialState, action) => {
       // immer
       return {
         ...state, // 이것을 써주는 이유는 push하면 기존에 있던 값들이 날라감 기존에 있던값을 같이 리턴 해주는 것이야.
-        todos:[ action.value], // 맞는게 아님
+        todos: [
+          ...state.todos,
+          {
+            //todos라는 배열 안에 state.todos 이라는 배열 (초기에는 빈값을) 을 넣어준다.
+            content: action.value, // [removeTodo]
+            index: int++, //이 부분에 content의 indexkey 넣어주면 된다.
+          },
+        ],
       };
     }
     case REMOVE_TODO: { 

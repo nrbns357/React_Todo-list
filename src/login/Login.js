@@ -10,14 +10,6 @@ const Login = () => {
   const [userPass, setUserPass] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  // const FatchPhp = () =>{
-  // fetch( //API로 php코드에 유저의 아이디와 비밀번호를 넘겨줌
-  //           `/API/login.php?id=${userId?.target.value}&pass=${userPass?.target.value}`
-  //           )
-  //           .then((response) => response.json()) // 그 결과를 json으로 바꿔줌
-  //           .then((data) =>dispatch(registTodo(data))) // 바꿔준 내용을 data라는 이름의 변수로 받아서 setUserInfo레 전해줌 Redux로 이 data를 넘겨줄 예정
-  //           .then(() => history.push("/Main"));
-  //               }
 
   const Examine = () => {
     if (!userId || !userPass) {

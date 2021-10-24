@@ -7,13 +7,14 @@ import "./todo-content.css";
 
 const Content = () => {
   const state = useSelector((state) => state); // store를 불러와서 그걸 state에 넣어주고 state.user을 써서 state안에 user정보를 변수에 저장
-  const { todos,userNumber } = state;
+  const { todos} = state;
   const dispatch = useDispatch();
   
 render()
   return (
     <div>
-        {todos.map(
+      {todos && // {&&}가 무엇이냐 하면 비교연산자 todos가 참이면 실행
+        todos.map(
           (
             value
           ) => (
