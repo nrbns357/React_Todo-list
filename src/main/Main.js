@@ -10,7 +10,7 @@ const TodoList = () => {
   const  number = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { userNumber } = number;
+  const { userNumber,todos } = number;
   
   
   useEffect(() => { // 로그인하고 main페이지에 들어 왔을 때 처음에 실행됨
@@ -27,6 +27,7 @@ const TodoList = () => {
   };
     const onSubmit = (event) => {
     event.preventDefault();
+    console.log(todos.Content);
     setValue("");
     fetch(`/API/add.php?text=${value}&userNumber=${userNumber}`)
     .then(()=>{

@@ -15,7 +15,7 @@ export const addTodo = (inputText) => {
   //액션생성 함수
   return {
     type: ADD_TODO,
-    value: inputText,
+    index: inputText,
   };
 };
 
@@ -23,7 +23,7 @@ export const addTodo = (inputText) => {
 export const removeTodo = (todoId) => {
   return {
     type: REMOVE_TODO,
-    delId:   todoId,
+    delId: todoId,
   };
 };
 
@@ -46,18 +46,18 @@ export const reducer = (state = initialState, action) => {
       // immer
       return {
         ...state, 
-        todos: [
-          ...state.todos,
-          {
-            
-          }         
-          ],
+        todos: action.index.map((item)=>{ //!!!!!!!!!!!!!!!!!!!!!!!!!! 이 코드는 함수가 아니다 그러니 실행이 안된다
+          return{
+            indexkey: item.indexKey,
+            content: item.content
+          }
+        })
       };
     }
     case REMOVE_TODO: { 
-      return { //삭제는 웹 페이지 에서만 잠깐 안보이고 서버에서는 삭제가 일어나지 않음 서버에서 삭제를 하기 위해서 content를 추가했을 때 userNumber가 있어야 함  
+      return { //content의 indexKey가 있어야함 그래야지 지우려고 하는 content를 지움  
         ...state,
-        todos: state.todos.filter(todo => todo.index !== action.id)
+        todos: state.todos.filter(todo => todo.indexKey !== action.id)
       };
     }
     
