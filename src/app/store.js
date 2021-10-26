@@ -43,17 +43,14 @@ export const reducer = (state = initialState, action) => {
       }    
       
     case ADD_TODO: {
+      console.log(action)
       // immer
       return {
         ...state, 
         todos:[
           ...state.todos,
-          {
-            content:action.index.content,
-            indexKey: action.index.indexKey
-          }
-        
-      ]
+          ...action.index
+        ]
       };
     }
     case REMOVE_TODO: { 

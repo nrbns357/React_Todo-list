@@ -1,10 +1,21 @@
 .contentBox{
-    overflow: scroll;
+    overflow: auto;
+    min-height: 200px;
+    max-height: 200px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    position: relative;
+    top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.233);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.274);
 }
 
 .content{
     position: relative;
     top: 1rem;
+    padding: 8px;
 }
 .delbtn{
     margin-left: 3px;

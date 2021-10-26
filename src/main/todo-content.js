@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeTodo } from "../app/store";
 import Img from "../asset/img/close.png";
@@ -7,18 +7,18 @@ import "./todo-content.css";
 
 const Content = () => {
   const state = useSelector((state) => state); // store를 불러와서 그걸 state에 넣어주고 state.user을 써서 state안에 user정보를 변수에 저장
-  const { todos} = state;
+  const { todos } = state;
   const dispatch = useDispatch();
   
 render()
   return (
-    <div>
+    <div className="contentBox">
       {todos && // {&&}가 무엇이냐 하면 비교연산자 todos가 참이면 실행
         todos.map(
           (
             value
           ) => (
-              <div className="content" key={value.index}>
+              <div className="content" key={value.indexKey}>
               {value.content}
               <img
                 alt="closeImg"
