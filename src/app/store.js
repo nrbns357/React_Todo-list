@@ -1,17 +1,17 @@
 import {  createStore } from "redux";
 
-const REGIST = "Regist";
+const LOGIN = "login";
 const ADD_TODO = "add_todo";
 const REMOVE_TODO = "remove_todo";
 
-export const registTodo = (userNum) => {
+export const LoginTodo = (userNum) => {
   return {
-    type: REGIST,
+    type: LOGIN,
     data: userNum,
   };
 };
 
-export const addTodo = (inputText) => {
+export const ShowContent = (inputText) => {
   //액션생성 함수
   return {
     type: ADD_TODO,
@@ -36,28 +36,30 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGIST: 
+    case LOGIN: 
       return {
         ...state,
-        userNumber: action.data,
+        userNumber: action.data
       }    
       
     case ADD_TODO: {
       // immer
       return {
         ...state, 
-        todos: action.index.map((item)=>{ //!!!!!!!!!!!!!!!!!!!!!!!!!! 이 코드는 함수가 아니다 그러니 실행이 안된다
-          return{
-            indexkey: item.indexKey,
-            content: item.content
+        todos:[
+          ...state.todos,
+          {
+            content:action.index.content,
+            indexKey: action.index.indexKey
           }
-        })
+        
+      ]
       };
     }
     case REMOVE_TODO: { 
       return { //content의 indexKey가 있어야함 그래야지 지우려고 하는 content를 지움  
         ...state,
-        todos: state.todos.filter(todo => todo.indexKey !== action.id)
+        todos: state.todos.filter(todo => todo.indexKey !== action.delId)
       };
     }
     

@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeTodo } from "../app/store";
 import Img from "../asset/img/close.png";
@@ -19,14 +19,14 @@ render()
             value
           ) => (
               <div className="content" key={value.index}>
-              {value}
+              {value.content}
               <img
                 alt="closeImg"
                 src={Img}
                 className="delbtn"
                 onClick={() => {
-                    fetch(`/API/del.php?id=${value.index}`).then((response) => // 삭제 기능은 정상작동됨
-                    response.status === 200 ? dispatch(removeTodo(value.index)) : false
+                    fetch(`/API/del.php?id=${value.indexKey}`).then((response) => // 삭제 기능은 정상작동됨
+                    response.status === 200 ? dispatch(removeTodo(value.indexKey)) : false
                   ); //삼항 연산자를 이용해서 dispatch로 값을 날려 주어야 한다 // 서버에 제거하라는 명령은 가지만 렌더링이 안되서 서버에서만 지워지고 웹페이지 에서는 지워진게 보이지 않는다.(렌더링 하기)
                 }}
               />

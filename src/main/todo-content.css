@@ -1,3 +1,6 @@
+.contentBox{
+    overflow: scroll;
+}
 
 .content{
     position: relative;
