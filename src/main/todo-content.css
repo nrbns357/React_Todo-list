@@ -1,4 +1,5 @@
 .contentBox{
+    width: 330px;
     overflow: auto;
     min-height: 200px;
     max-height: 200px;
@@ -9,13 +10,20 @@
     top: 20px;
     border: 1px solid rgba(255, 255, 255, 0.233);
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.274);
+    background-color: rgba(255, 255, 255, 0.137);
 }
 
 .content{
-    position: relative;
-    top: 1rem;
+    margin: 12px;
+    background-color: #fff; 
+    border-radius: 10px;
     padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid gray;   
+    font-size: 1.1rem;
+    color: #222;
 }
 .delbtn{
     margin-left: 3px;

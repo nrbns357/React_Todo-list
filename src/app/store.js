@@ -1,4 +1,4 @@
-import {  createStore } from "redux";
+import { createStore } from "redux";
 
 const LOGIN = "login";
 const ADD_TODO = "add_todo";
@@ -19,7 +19,6 @@ export const ShowContent = (inputText) => {
   };
 };
 
-
 export const removeTodo = (todoId) => {
   return {
     type: REMOVE_TODO,
@@ -27,39 +26,34 @@ export const removeTodo = (todoId) => {
   };
 };
 
-
 const initialState = {
-  userNumber: '',
+  userNumber: "",
   todos: [],
 };
 
-
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN: 
+    case LOGIN:
       return {
         ...state,
-        userNumber: action.data
-      }    
-      
+        userNumber: action.data,
+      };
+
     case ADD_TODO: {
-      console.log(action)
       // immer
       return {
-        ...state, 
-        todos:[
-          ...state.todos,
-          ...action.index
-        ]
-      };
-    }
-    case REMOVE_TODO: { 
-      return { //content의 indexKey가 있어야함 그래야지 지우려고 하는 content를 지움  
         ...state,
-        todos: state.todos.filter(todo => todo.indexKey !== action.delId)
+        todos: [...action.index],
       };
     }
-    
+    case REMOVE_TODO: {
+      return {
+        //content의 indexKey가 있어야함 그래야지 지우려고 하는 content를 지움
+        ...state,
+        todos: state.todos.filter((todo) => todo.indexKey !== action.delId),
+      };
+    }
+
     default:
       return state;
   }
