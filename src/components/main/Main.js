@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ShowContent } from "../app/store";
-import Content from "./todo-content";
+import Content from "./todoContent/todo-content";
 import "./Main.css";
 
 const TodoList = () => {
@@ -11,7 +11,7 @@ const TodoList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { userNumber } = number;
-  localStorage.setItem("userNumber",userNumber);
+  localStorage.setItem("userNumber", userNumber);
 
   useEffect(() => {
     // 로그인하고 main페이지에 들어 왔을 때 처음에 실행됨
@@ -33,7 +33,7 @@ const TodoList = () => {
       fetch(`/API/content.php?userNumber=${userNumber}`)
         .then((result) => result.json())
         .then((res) => dispatch(ShowContent(res)));
-    }); // 추가할때 id가 userNumber값으로 나와야하는데 id가 0으로 나온다 (id를 확인하는 방범은 삭제 버튼을 누른뒤 네트워크에서 확인해라)
+    });
   };
   //const UserRefresh = localStorage.getItem('')//여기서 true false를 가져와서 useEffect로 페이지를 그대로 두거나 한다 .
   useEffect(() => {
